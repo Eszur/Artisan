@@ -87,7 +87,7 @@ internal class ListEditor : Window, IDisposable
 
     private bool NeedsToRefreshTable = false;
     public ListEditor(int listId)
-        : base($"List Editor###{listId}")
+        : base($"清单编辑器###{listId}")
     {
         SelectedList = P.Config.CraftingLists.First(x => x.ID == listId);
         RecipeSelector = new RecipeSelector(SelectedList.ID);
@@ -172,12 +172,12 @@ internal class ListEditor : Window, IDisposable
 
     public async override void Draw()
     {
-        var btn = ImGuiHelpers.GetButtonSize("Begin Crafting List");
+        var btn = ImGuiHelpers.GetButtonSize("开始制作清单");
 
         if (Endurance.Enable || CraftingListUI.Processing)
             ImGui.BeginDisabled();
 
-        if (ImGui.Button("Begin Crafting List"))
+        if (ImGui.Button("开始制作清单"))
         {
             CraftingListUI.selectedList = this.SelectedList;
             CraftingListUI.StartList();
@@ -188,14 +188,14 @@ internal class ListEditor : Window, IDisposable
             ImGui.EndDisabled();
 
         ImGui.SameLine();
-        var export = ImGuiHelpers.GetButtonSize("Export List");
+        var export = ImGuiHelpers.GetButtonSize("导出清单");
 
-        if (ImGui.Button("Export List"))
+        if (ImGui.Button("导出清单"))
         {
             Clipboard.SetText(JsonConvert.SerializeObject(P.Config.CraftingLists.Where(x => x.ID == SelectedList.ID).First()));
-            Notify.Success("List exported to clipboard.");
+            Notify.Success("清单已导出至剪切板.");
         }
-        var restock = ImGuiHelpers.GetButtonSize("Restock From Retainers");
+        var restock = ImGuiHelpers.GetButtonSize("从雇员背包取出");
         if (RetainerInfo.ATools)
         {
             ImGui.SameLine();
@@ -203,7 +203,7 @@ internal class ListEditor : Window, IDisposable
             if (Endurance.Enable || CraftingListUI.Processing)
                 ImGui.BeginDisabled();
 
-            if (ImGui.Button($"Restock From Retainers"))
+            if (ImGui.Button($"从雇员背包取出"))
             {
                 Task.Run(() => RetainerInfo.RestockFromRetainers(SelectedList));
             }
@@ -212,15 +212,15 @@ internal class ListEditor : Window, IDisposable
                 ImGui.EndDisabled();
         }
 
-        if (ImGui.BeginTabBar("CraftingListEditor", ImGuiTabBarFlags.None))
+        if (ImGui.BeginTabBar("制作清单编辑", ImGuiTabBarFlags.None))
         {
-            if (ImGui.BeginTabItem("Recipes"))
+            if (ImGui.BeginTabItem("配方"))
             {
                 DrawRecipes();
                 ImGui.EndTabItem();
             }
 
-            if (ImGui.BeginTabItem("Ingredients"))
+            if (ImGui.BeginTabItem("素材"))
             {
                 if (NeedsToRefreshTable)
                 {
@@ -232,7 +232,7 @@ internal class ListEditor : Window, IDisposable
                 ImGui.EndTabItem();
             }
 
-            if (ImGui.BeginTabItem("List Settings"))
+            if (ImGui.BeginTabItem("清单设置"))
             {
                 DrawListSettings();
                 ImGui.EndTabItem();
@@ -253,7 +253,7 @@ internal class ListEditor : Window, IDisposable
     {
         if (P.Config.CraftingLists.Count > 1)
         {
-            ImGuiEx.TextWrapped($"Select List");
+            ImGuiEx.TextWrapped($"选择清单");
             ImGuiEx.SetNextItemFullWidth();
             if (ImGui.BeginCombo("###ListCopyCombo", copyList is null ? "" : copyList.Name))
             {

@@ -55,22 +55,22 @@ namespace Artisan.UI
                 //    P.PluginUi.IsOpen = true;
                 //}
 
-                ImGui.Text($"Now Processing: {CraftingListUI.selectedList.Name}");
+                ImGui.Text($"正在处理: {CraftingListUI.selectedList.Name}");
                 ImGui.Separator();
                 ImGui.Spacing();
                 if (CraftingListUI.CurrentProcessedItem != 0)
                 {
-                    ImGuiEx.TextV($"Crafting: {LuminaSheets.RecipeSheet[CraftingListUI.CurrentProcessedItem].ItemResult.Value.Name.RawString}");
-                    ImGuiEx.TextV($"Overall Progress: {CraftingListFunctions.CurrentIndex + 1} / {CraftingListUI.selectedList.Items.Count}");
+                    ImGuiEx.TextV($"制作: {LuminaSheets.RecipeSheet[CraftingListUI.CurrentProcessedItem].ItemResult.Value.Name.RawString}");
+                    ImGuiEx.TextV($"总体进展: {CraftingListFunctions.CurrentIndex + 1} / {CraftingListUI.selectedList.Items.Count}");
 
                     string duration = string.Format("{0:D2}h {1:D2}m {2:D2}s", CraftingListFunctions.ListEndTime.Hours, CraftingListFunctions.ListEndTime.Minutes, CraftingListFunctions.ListEndTime.Seconds);
-                    ImGuiEx.TextV($"Approximate Remaining Duration: {duration}");
+                    ImGuiEx.TextV($"大致剩余时间: {duration}");
 
                 }
 
                 if (!CraftingListFunctions.Paused)
                 {
-                    if (ImGui.Button("Pause"))
+                    if (ImGui.Button("暂停"))
                     {
                         CraftingListFunctions.Paused = true;
                         P.TM.Abort();
@@ -80,7 +80,7 @@ namespace Artisan.UI
                 }
                 else
                 {
-                    if (ImGui.Button("Resume"))
+                    if (ImGui.Button("继续"))
                     {
                         if (Crafting.CurState is Crafting.State.IdleNormal or Crafting.State.IdleBetween)
                         {
@@ -93,7 +93,7 @@ namespace Artisan.UI
                 }
 
                 ImGui.SameLine();
-                if (ImGui.Button("Cancel"))
+                if (ImGui.Button("取消"))
                 {
                     CraftingListUI.Processing = false;
                     CraftingListFunctions.Paused = false;

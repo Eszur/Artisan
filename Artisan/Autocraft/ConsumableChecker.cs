@@ -184,8 +184,8 @@ namespace Artisan.Autocraft
                 {
                     if (Endurance.Enable)
                     {
-                        Svc.Toasts.ShowError("Food not found. Disabling Endurance.");
-                        DuoLog.Error("Food not found. Disabling Endurance.");
+                        Svc.Toasts.ShowError("未找到食物，停止重复制作。");
+                        DuoLog.Error("未找到食物，停止重复制作");
                         Endurance.Enable = false;
                     }
                     fooded = !P.Config.AbortIfNoFoodPot;
@@ -203,8 +203,8 @@ namespace Artisan.Autocraft
                 {
                     if (Endurance.Enable)
                     {
-                        Svc.Toasts.ShowError("Potion not found. Disabling Endurance.");
-                        DuoLog.Error("Potion not found. Disabling Endurance.");
+                        Svc.Toasts.ShowError("未找到药品，停止重复制作。");
+                        DuoLog.Error("未找到药品，停止重复制作。");
                         Endurance.Enable = false;
                     }
                     potted = !P.Config.AbortIfNoFoodPot;
@@ -222,8 +222,8 @@ namespace Artisan.Autocraft
                 {
                     if (Endurance.Enable)
                     {
-                        Svc.Toasts.ShowError("Manual not found. Disabling Endurance.");
-                        DuoLog.Error("Manual not found. Disabling Endurance.");
+                        Svc.Toasts.ShowError("未找到工程学指南，停止重复制作。");
+                        DuoLog.Error("未找到工程学指南，停止重复制作。");
                         Endurance.Enable = false;
                     }
                     manualed = !P.Config.AbortIfNoFoodPot;
@@ -241,8 +241,8 @@ namespace Artisan.Autocraft
                 {
                     if (Endurance.Enable)
                     {
-                        Svc.Toasts.ShowError("Squadron Manual not found. Disabling Endurance.");
-                        DuoLog.Error("Squadron Manual not found. Disabling Endurance.");
+                        Svc.Toasts.ShowError("未找到军用指南，停止重复制作。");
+                        DuoLog.Error("未找到军用指南，停止重复制作。");
                         Endurance.Enable = false;
                     }
                     squadronManualed = !P.Config.AbortIfNoFoodPot;
