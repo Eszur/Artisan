@@ -84,7 +84,7 @@ namespace Artisan.UI
             if (Crafting.CurCraft != null && !Crafting.CurCraft.CraftExpert && Crafting.CurRecipe?.SecretRecipeBook.Row > 0 && Crafting.CurCraft?.CraftLevel == Crafting.CurCraft?.StatLevel && !CraftingProcessor.ActiveSolver.IsType<MacroSolver>())
             {
                 ImGui.Dummy(new System.Numerics.Vector2(12f));
-                ImGuiEx.TextWrapped(ImGuiColors.DalamudYellow, "这是当前级别的主配方。您的成功率可能会有所不同，因此建议使用Artisan宏或手动解决此问题。", this.SizeConstraints?.MaximumSize.X ?? 0);
+                ImGuiEx.TextWrapped(ImGuiColors.DalamudYellow, "这是当前级别的主配方。您的成功率可能会有所不同，因此建议使用Artisan宏或手动解决此问题。");
             }
 
             bool autoMode = P.Config.AutoMode;
