@@ -821,7 +821,7 @@ internal class ListEditor : Window, IDisposable
     {
         if (Table == null)
         {
-            ImGui.Text($"Ingredient table is still populating. Please wait.");
+            ImGui.Text($"素材正在统计，请稍等...");
             return;
         }
         ImGui.BeginChild("###IngredientsListTable", new Vector2(ImGui.GetContentRegionAvail().X, ImGui.GetContentRegionAvail().Y - 60f));
@@ -832,12 +832,12 @@ internal class ListEditor : Window, IDisposable
         Table.Draw(ImGui.GetTextLineHeightWithSpacing());
         ImGui.EndChild();
 
-        ImGui.Checkbox($"Only show HQ crafts", ref HQSubcraftsOnly);
+        ImGui.Checkbox($"只显示HQ", ref HQSubcraftsOnly);
 
         ImGuiComponents.HelpMarker($"For ingredients that can be crafted, this will only show inventory{(RetainerInfo.ATools ? " and retainer" : "")} counts that are HQ.");
 
         ImGui.SameLine();
-        ImGui.Checkbox("Enable Colour Validation", ref ColourValidation);
+        ImGui.Checkbox("启用颜色验证", ref ColourValidation);
 
         if (ColourValidation)
         {
@@ -849,7 +849,7 @@ internal class ListEditor : Window, IDisposable
             ImGui.PopStyleColor();
             ImGui.SameLine();
             ImGui.SetCursorPosX(ImGui.GetCursorPosX() - 7);
-            ImGui.Text($" - Inventory has all required items");
+            ImGui.Text($" - 背包包含所有必需项");
 
             if (RetainerInfo.ATools)
             {
@@ -861,7 +861,7 @@ internal class ListEditor : Window, IDisposable
                 ImGui.PopStyleColor();
                 ImGui.SameLine();
                 ImGui.SetCursorPosX(ImGui.GetCursorPosX() - 7);
-                ImGui.Text($" - Combination of Retainer & Inventory has all required items");
+                ImGui.Text($" - 雇员和背包中有所有必需项");
             }
 
             ImGui.PushStyleColor(ImGuiCol.Button, ImGuiColors.ParsedBlue);
@@ -871,13 +871,13 @@ internal class ListEditor : Window, IDisposable
             ImGui.PopStyleColor();
             ImGui.SameLine();
             ImGui.SetCursorPosX(ImGui.GetCursorPosX() - 7);
-            ImGui.Text($" - Combination of Inventory & Craftable has all required items.");
+            ImGui.Text($" - 背包和可制作满足所有必需项。");
         }
         ImGui.SameLine();
 
         if (ImGui.GetIO().KeyShift)
         {
-            if (ImGui.Button($"Export Required Ingredients as Plain Text"))
+            if (ImGui.Button($"将所需素材导出为纯文本"))
             {
                 StringBuilder sb = new();
                 foreach (var item in Table.ListItems.Where(x => x.Required > 0))
@@ -898,7 +898,7 @@ internal class ListEditor : Window, IDisposable
         }
         else
         {
-            if (ImGui.Button($"Export Remaining Ingredients as Plain Text"))
+            if (ImGui.Button($"将所缺素材导出为纯文本"))
             {
                 StringBuilder sb = new();
                 foreach (var item in Table.ListItems.Where(x => x.Remaining > 0))
@@ -919,7 +919,7 @@ internal class ListEditor : Window, IDisposable
 
             if (ImGui.IsItemHovered())
             {
-                ImGuiEx.Tooltip($"Hold shift to change from remaining to required.");
+                ImGuiEx.Tooltip($"按住shift键，将所缺值更改为所需值。");
             }
 
         }

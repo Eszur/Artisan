@@ -617,14 +617,14 @@ namespace Artisan
 
         private static void DrawCopyOfCraftMenu()
         {
-            if (ImGuiEx.AddHeaderIcon("OpenConfig", FontAwesomeIcon.Cog, new ImGuiEx.HeaderIconOptions() { Tooltip = "Open Config" }))
+            if (ImGuiEx.AddHeaderIcon("OpenConfig", FontAwesomeIcon.Cog, new ImGuiEx.HeaderIconOptions() { Tooltip = "打开设置" }))
             {
                 P.PluginUi.IsOpen = true;
             }
 
             bool autoMode = P.Config.AutoMode;
 
-            if (ImGui.Checkbox("Automatic Action Execution Mode", ref autoMode))
+            if (ImGui.Checkbox("自动操作模式", ref autoMode))
             {
                 P.Config.AutoMode = autoMode;
                 P.Config.Save();
@@ -634,7 +634,7 @@ namespace Artisan
             if (!CraftingListFunctions.HasItemsForRecipe(Endurance.RecipeID))
                 ImGui.BeginDisabled();
 
-            if (ImGui.Checkbox("Endurance Mode Toggle", ref enable))
+            if (ImGui.Checkbox("重复制作模式", ref enable))
             {
                 Endurance.ToggleEndurance(enable);
             }

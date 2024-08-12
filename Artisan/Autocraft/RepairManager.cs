@@ -30,7 +30,8 @@ namespace Artisan.Autocraft
         {
             if (TryGetAddonByName<AddonRepairFixed>("Repair", out var addon) && addon->AtkUnitBase.IsVisible && addon->RepairAllButton->IsEnabled && Throttler.Throttle(500))
             {
-                new ClickRepairFixed((IntPtr)addon).RepairAll();
+                //new ClickRepairFixed((IntPtr)addon).RepairAll();
+                new ClickRepair((IntPtr)addon).RepairAll();
             }
         }
 

@@ -780,7 +780,7 @@ namespace Artisan.UI
 
                 if (P.Config.DefaultListRepair)
                 {
-                    ImGui.TextWrapped($"修理地点");
+                    ImGui.TextWrapped($"修理阈值");
                     ImGui.SameLine();
                     if (ImGui.SliderInt("###SliderRepairDefault", ref P.Config.DefaultListRepairPercent, 0, 100, $"%d%%"))
                     {
