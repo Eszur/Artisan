@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Authors></Authors>
     <Company></Company>
-    <Version>3.0.4.9</Version>
+    <Version>3.0.5.15</Version>
     <Description>A 'simple' crafting plugin.</Description>
     <Copyright>Taurenkey</Copyright>
   </PropertyGroup>
@@ -16,6 +16,7 @@
 		<RootNamespace>Artisan</RootNamespace>
 		<PackageId>Artisan</PackageId>
 		<Product>Artisan</Product>
+		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">

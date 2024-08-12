@@ -61,7 +61,7 @@ namespace Artisan.UI
                 if (CraftingListUI.CurrentProcessedItem != 0)
                 {
                     ImGuiEx.TextV($"制作: {LuminaSheets.RecipeSheet[CraftingListUI.CurrentProcessedItem].ItemResult.Value.Name.RawString}");
-                    ImGuiEx.TextV($"总体进展: {CraftingListFunctions.CurrentIndex + 1} / {CraftingListUI.selectedList.Items.Count}");
+                    ImGuiEx.TextV($"总体进展: {CraftingListFunctions.CurrentIndex + 1} / {CraftingListUI.selectedList.ExpandedList.Count}");
 
                     string duration = string.Format("{0:D2}h {1:D2}m {2:D2}s", CraftingListFunctions.ListEndTime.Hours, CraftingListFunctions.ListEndTime.Minutes, CraftingListFunctions.ListEndTime.Seconds);
                     ImGuiEx.TextV($"大致剩余时间: {duration}");
@@ -85,7 +85,7 @@ namespace Artisan.UI
                         if (Crafting.CurState is Crafting.State.IdleNormal or Crafting.State.IdleBetween)
                         {
                             var recipe = LuminaSheets.RecipeSheet[CraftingListUI.CurrentProcessedItem];
-                            PreCrafting.Tasks.Add((() => PreCrafting.TaskSelectRecipe(recipe), TimeSpan.FromSeconds(5)));
+                            PreCrafting.Tasks.Add((() => PreCrafting.TaskSelectRecipe(recipe), default));
                         }
 
                         CraftingListFunctions.Paused = false;
@@ -99,6 +99,7 @@ namespace Artisan.UI
                     CraftingListFunctions.Paused = false;
                     P.TM.Abort();
                     CraftingListFunctions.CLTM.Abort();
+                    PreCrafting.Tasks.Clear();
                     Crafting.CraftFinished -= CraftingListUI.UpdateListTimer;
                 }
             }

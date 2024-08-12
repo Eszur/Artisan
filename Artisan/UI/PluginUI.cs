@@ -14,6 +14,7 @@ using ECommons;
 using ECommons.DalamudServices;
 using ECommons.ImGuiMethods;
 using ImGuiNET;
+using OtterGui;
 using PunishLib.ImGuiMethods;
 using System;
 using System.IO;
@@ -648,10 +649,25 @@ namespace Artisan.UI
 
 
             }
+            bool openExpert = false;
             if (ImGui.CollapsingHeader("专家配方求解器设置"))
             {
+                openExpert = true;
+                if (P.Config.ExpertSolverConfig.expertIcon is not null)
+                {
+                    ImGui.SameLine();
+                    ImGui.Image(P.Config.ExpertSolverConfig.expertIcon.ImGuiHandle, new(P.Config.ExpertSolverConfig.expertIcon.Width * ImGuiHelpers.GlobalScaleSafe, ImGui.GetItemRectSize().Y), new(0, 0), new(1, 1), new(0.94f, 0.57f, 0f, 1f));
+                }
                 if (P.Config.ExpertSolverConfig.Draw())
                     P.Config.Save();
+            }
+            if (!openExpert)
+            {
+                if (P.Config.ExpertSolverConfig.expertIcon is not null)
+                {
+                    ImGui.SameLine();
+                    ImGui.Image(P.Config.ExpertSolverConfig.expertIcon.ImGuiHandle, new(P.Config.ExpertSolverConfig.expertIcon.Width * ImGuiHelpers.GlobalScaleSafe, ImGui.GetItemRectSize().Y), new(0, 0), new(1, 1), new(0.94f, 0.57f, 0f, 1f));
+                }
             }
             if (ImGui.CollapsingHeader("脚本求解器设置"))
             {
@@ -682,14 +698,14 @@ namespace Artisan.UI
                 }
                 ImGuiComponents.HelpMarker("隐藏配方列表中的配置设置迷你菜单。仍显示单个宏菜单。");
 
-                bool lockMini = P.Config.LockMiniMenu;
+                bool lockMini = P.Config.LockMiniMenuR;
                 if (ImGui.Checkbox("保持配方列表迷你菜单位置与配方列表相连。", ref lockMini))
                 {
-                    P.Config.LockMiniMenu = lockMini;
+                    P.Config.LockMiniMenuR = lockMini;
                     P.Config.Save();
                 }
 
-                if (!P.Config.LockMiniMenu)
+                if (!P.Config.LockMiniMenuR)
                 {
                     if (ImGui.Checkbox($"固定迷你菜单位置", ref P.Config.PinMiniMenu))
                     {
