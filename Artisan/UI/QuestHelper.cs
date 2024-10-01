@@ -5,7 +5,6 @@ using Artisan.QuestSync;
 using Artisan.RawInformation;
 using Dalamud.Interface.Windowing;
 using ECommons;
-using ECommons.DalamudServices;
 using FFXIVClientStructs.FFXIV.Client.Game;
 using ImGuiNET;
 using System;
@@ -78,7 +77,7 @@ namespace Artisan.UI
             if (isOnSayQuest)
             {
                 ImGui.Text($"任务助手（点击在说话频道发送关键词）");
-                foreach (var quest in QuestManager.Instance()->DailyQuestsSpan)
+                foreach (var quest in QuestManager.Instance()->DailyQuests)
                 {
                     string message = QuestList.GetSayQuestString(quest.QuestId);
                     if (message != "")
@@ -94,7 +93,7 @@ namespace Artisan.UI
             if (isOnEmoteQuest)
             {
                 ImGui.Text("任务助手（点击选择并发送情感动作）");
-                foreach (var quest in QuestManager.Instance()->DailyQuestsSpan)
+                foreach (var quest in QuestManager.Instance()->DailyQuests)
                 {
                     if (quest.IsCompleted) continue;
 

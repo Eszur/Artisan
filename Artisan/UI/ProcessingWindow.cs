@@ -61,9 +61,10 @@ namespace Artisan.UI
                 if (CraftingListUI.CurrentProcessedItem != 0)
                 {
                     ImGuiEx.TextV($"制作: {LuminaSheets.RecipeSheet[CraftingListUI.CurrentProcessedItem].ItemResult.Value.Name.RawString}");
-                    ImGuiEx.TextV($"总体进展: {CraftingListFunctions.CurrentIndex + 1} / {CraftingListUI.selectedList.ExpandedList.Count}");
+                    ImGuiEx.TextV($"当前项进度: {CraftingListUI.CurrentProcessedItemCount} / {CraftingListUI.CurrentProcessedItemListCount}");
+                    ImGuiEx.TextV($"总进度: {CraftingListFunctions.CurrentIndex + 1} / {CraftingListUI.selectedList.ExpandedList.Count}");
 
-                    string duration = string.Format("{0:D2}h {1:D2}m {2:D2}s", CraftingListFunctions.ListEndTime.Hours, CraftingListFunctions.ListEndTime.Minutes, CraftingListFunctions.ListEndTime.Seconds);
+                    string duration = CraftingListFunctions.ListEndTime == TimeSpan.Zero ? "Unknown" : string.Format("{0:D2}d {1:D2}h {2:D2}m {3:D2}s", CraftingListFunctions.ListEndTime.Days, CraftingListFunctions.ListEndTime.Hours, CraftingListFunctions.ListEndTime.Minutes, CraftingListFunctions.ListEndTime.Seconds);
                     ImGuiEx.TextV($"大致剩余时间: {duration}");
 
                 }

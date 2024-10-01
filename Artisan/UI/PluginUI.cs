@@ -1,7 +1,6 @@
 ﻿using Artisan.Autocraft;
 using Artisan.CraftingLists;
 using Artisan.FCWorkshops;
-using Artisan.IPC;
 using Artisan.RawInformation;
 using Artisan.RawInformation.Character;
 using Dalamud.Interface;
@@ -14,7 +13,6 @@ using ECommons;
 using ECommons.DalamudServices;
 using ECommons.ImGuiMethods;
 using ImGuiNET;
-using OtterGui;
 using PunishLib.ImGuiMethods;
 using System;
 using System.IO;
@@ -91,7 +89,7 @@ namespace Artisan.UI
         {
             if (DalamudInfo.IsOnStaging())
             {
-                ImGui.Text($"Artisan 无法在临时版 Dalamud 上运行。请键入 /xlbranch，然后切换到 release。");
+                ImGui.Text($"Artisan is not designed to work on non-release versions of Dalamud. Please type /xlbranch, click 'release' and then 'Pick & Restart'.");
                 return;
             }
 
@@ -251,13 +249,13 @@ namespace Artisan.UI
 
             if (ThreadLoadImageHandler.TryGetTextureWrap(imagePath, out var logo))
             {
-                ImGuiEx.ImGuiLineCentered("###ArtisanTextLogo", () =>
+                ImGuiEx.LineCentered("###ArtisanTextLogo", () =>
                 {
                     ImGui.Image(logo.ImGuiHandle, new Vector2(logo.Width, 100f.Scale()));
                 });
             }
 
-            ImGuiEx.ImGuiLineCentered("###ArtisanOverview", () =>
+            ImGuiEx.LineCentered("###ArtisanOverview", () =>
             {
                 ImGuiEx.TextUnderlined("Artisan - 概述");
             });
@@ -268,7 +266,7 @@ namespace Artisan.UI
             ImGuiEx.TextWrapped($"在您开始使用Artisan之前，我们应该先了解一下插件的工作原理。一旦你了解了几个关键因素，Artisan就很容易使用。");
 
             ImGui.Spacing();
-            ImGuiEx.ImGuiLineCentered("###ArtisanModes", () =>
+            ImGuiEx.LineCentered("###ArtisanModes", () =>
             {
                 ImGuiEx.TextUnderlined("Crafting Modes");
             });
@@ -283,7 +281,7 @@ namespace Artisan.UI
 
             if (ThreadLoadImageHandler.TryGetTextureWrap(automode, out var example))
             {
-                ImGuiEx.ImGuiLineCentered("###AutoModeExample", () =>
+                ImGuiEx.LineCentered("###AutoModeExample", () =>
                 {
                     ImGui.Image(example.ImGuiHandle, new Vector2(example.Width, example.Height));
                 });
@@ -296,7 +294,7 @@ namespace Artisan.UI
 
             if (ThreadLoadImageHandler.TryGetTextureWrap(craftWindowExample, out example))
             {
-                ImGuiEx.ImGuiLineCentered("###CraftWindowExample", () =>
+                ImGuiEx.LineCentered("###CraftWindowExample", () =>
                 {
                     ImGui.Image(example.ImGuiHandle, new Vector2(example.Width, example.Height));
                 });
@@ -311,14 +309,14 @@ namespace Artisan.UI
 
             if (ThreadLoadImageHandler.TryGetTextureWrap(outlineExample, out example))
             {
-                ImGuiEx.ImGuiLineCentered("###OutlineExample", () =>
+                ImGuiEx.LineCentered("###OutlineExample", () =>
                 {
                     ImGui.Image(example.ImGuiHandle, new Vector2(example.Width, example.Height));
                 });
             }
 
             ImGui.Spacing();
-            ImGuiEx.ImGuiLineCentered("###ArtisanSuggestions", () =>
+            ImGuiEx.LineCentered("###ArtisanSuggestions", () =>
             {
                 ImGuiEx.TextUnderlined("求解器/宏");
             });
@@ -348,7 +346,7 @@ namespace Artisan.UI
 
             if (ThreadLoadImageHandler.TryGetTextureWrap(recipeWindowExample, out example))
             {
-                ImGuiEx.ImGuiLineCentered("###RecipeWindowExample", () =>
+                ImGuiEx.LineCentered("###RecipeWindowExample", () =>
                 {
                     ImGui.Image(example.ImGuiHandle, new Vector2(example.Width, example.Height));
                 });
@@ -360,7 +358,7 @@ namespace Artisan.UI
 
 
             ImGui.Spacing();
-            ImGuiEx.ImGuiLineCentered("###Endurance", () =>
+            ImGuiEx.LineCentered("###Endurance", () =>
             {
                 ImGuiEx.TextUnderlined("Endurance");
             });
@@ -385,7 +383,7 @@ namespace Artisan.UI
             }
 
             ImGui.Spacing();
-            ImGuiEx.ImGuiLineCentered("###Lists", () =>
+            ImGuiEx.LineCentered("###Lists", () =>
             {
                 ImGuiEx.TextUnderlined("制作清单");
             });
@@ -407,7 +405,7 @@ namespace Artisan.UI
             }
 
             ImGui.Spacing();
-            ImGuiEx.ImGuiLineCentered("###Questions", () =>
+            ImGuiEx.LineCentered("###Questions", () =>
             {
                 ImGuiEx.TextUnderlined("有问题吗？");
             });
@@ -455,7 +453,6 @@ namespace Artisan.UI
             //bool useSimulated = P.Config.UseSimulatedStartingQuality;
             bool disableGlow = P.Config.DisableHighlightedAction;
             bool disableToasts = P.Config.DisableToasts;
-            bool disableMini = P.Config.DisableMiniMenu;
 
             ImGui.Separator();
 
@@ -641,7 +638,12 @@ namespace Artisan.UI
                     P.Config.Save();
                 ImGuiComponents.HelpMarker($"这往往对耐久性较低的工艺品更为有利。");
 
-                ImGui.TextWrapped($"{Skills.PreparatoryTouch.NameOfAction()} -  {Buffs.InnerQuiet.NameOfBuff()} 最高层数");
+                //if (ImGui.Checkbox("Low Stat Mode", ref P.Config.LowStatsMode))
+                //    P.Config.Save();
+
+                //ImGuiComponents.HelpMarker("This swaps out Waste Not II & Groundwork for Prudent Synthesis");
+
+                ImGui.TextWrapped($"{Skills.PreparatoryTouch.NameOfAction()} - Max {Buffs.InnerQuiet.NameOfBuff()} stacks");
                 ImGui.SameLine();
                 ImGuiComponents.HelpMarker($"只使用 {Skills.PreparatoryTouch.NameOfAction()} 最多不超过 {Buffs.InnerQuiet.NameOfBuff()} 的堆叠数。这对于节省CP非常有用。");
                 if (ImGui.SliderInt($"###MaxIQStacksPrepTouch", ref P.Config.MaxIQPrepTouch, 0, 10))
@@ -690,13 +692,6 @@ namespace Artisan.UI
                 }
 
                 ImGuiComponents.HelpMarker("每当建议执行新技能时，这些弹出窗口就会出现。");
-
-                if (ImGui.Checkbox("禁用配方列表迷你菜单", ref disableMini))
-                {
-                    P.Config.DisableMiniMenu = disableMini;
-                    P.Config.Save();
-                }
-                ImGuiComponents.HelpMarker("隐藏配方列表中的配置设置迷你菜单。仍显示单个宏菜单。");
 
                 bool lockMini = P.Config.LockMiniMenuR;
                 if (ImGui.Checkbox("保持配方列表迷你菜单位置与配方列表相连。", ref lockMini))
@@ -822,13 +817,13 @@ namespace Artisan.UI
                 }
 
                 ImGui.PushItemWidth(400);
-                if (ImGui.SliderFloat("制作之间的延迟", ref P.Config.ListCraftThrottle, 0.2f, 2f, "%.1f"))
+                if (ImGui.SliderFloat("制作之间的延迟", ref P.Config.ListCraftThrottle2, 0.2f, 2f, "%.1f"))
                 {
-                    if (P.Config.ListCraftThrottle < 0.2f)
-                        P.Config.ListCraftThrottle = 0.2f;
+                    if (P.Config.ListCraftThrottle2 < 0.2f)
+                        P.Config.ListCraftThrottle2 = 0.2f;
 
-                    if (P.Config.ListCraftThrottle > 2f)
-                        P.Config.ListCraftThrottle = 2f;
+                    if (P.Config.ListCraftThrottle2 > 2f)
+                        P.Config.ListCraftThrottle2 = 2f;
 
                     P.Config.Save();
                 }
